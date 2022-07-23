@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect, useReducer } from 'react';
 // import './style/block.scss';
-import EditorContext from '../pages/content';
+import EditorContext from '../inviroment/content';
 
 const Block = (props) => {
   const [, forceUpdate] = useReducer(v => v + 1, 0);

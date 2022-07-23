@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import SchemaJSON from './schema.json'
+import SchemaJSON from '../inviroment/schema.json'
 import { useState,useRef,useCallback,useReducer } from 'react'
-import config from './config'
+import config from '../inviroment/config'
 import Block from '../components/Block'
-import { Provider } from './content';
+import { Provider } from '../inviroment/content';
 import clone from '../utils/deepCopy'
 
 export default function Home() {
