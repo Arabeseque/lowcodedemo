@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import SchemaJSON from './schema.json'
-import { useState,useRef,useCallback  } from 'react'
+import { useState,useRef,useCallback,useReducer } from 'react'
 import config from './config'
 import Block from '../components/Block'
 import { Provider } from './content';
@@ -11,6 +11,8 @@ import clone from '../utils/deepCopy'
 export default function Home() {
   const currentMaterial = useRef(); // 记录当前拖拽的物料组件
   const [schema, setSchema] = useState(SchemaJSON)
+
+  const [, forceUpdate] = useReducer(v => v + 1, 0);
 
   const handleDragStart = (component) => {
     currentMaterial.current = component;
@@ -42,6 +44,7 @@ export default function Home() {
     });
     setSchema(clone(schema));
     currentMaterial.current = null;
+    forceUpdate()
   }
 
   const blocksFocusInfo = useCallback(() => {
@@ -53,6 +56,8 @@ export default function Home() {
   const cleanBlocksFocus = (refresh) => {
     schema.blocks.forEach(block => block.focus = false);
     refresh && setSchema(clone(schema));
+    forceUpdate()
+
   }
   
   const dragState = useRef({ 
@@ -77,6 +82,7 @@ export default function Home() {
     }
     
     setSchema(clone(schema));
+    forceUpdate()
 
     handleBlockMove(e);
   }
@@ -101,6 +107,7 @@ export default function Home() {
       })
       
       setSchema(clone(schema));
+      forceUpdate()
     }
 
     const blockMouseUp = () => {
